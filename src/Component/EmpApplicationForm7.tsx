@@ -1263,7 +1263,7 @@ export default function EmpApplicationForm7(props: Props) {
                       variant="contained"
                       color="primary"
                     >
-                      Save This & Next
+                      Submit All
                     </Button>
                   </Grid>
                   {/* BUTTON End */}
@@ -1289,7 +1289,7 @@ export default function EmpApplicationForm7(props: Props) {
           onClose={handleClose}
           severity={succesOrErrorBit}
           message={
-            succesOrErrorBit === "success" ? "Data Saved Successfully" : "Error"
+            succesOrErrorBit === "success" ? "All Data Saved Successfully" : "Error"
           }
         ></AlertComponent>
       </Container>

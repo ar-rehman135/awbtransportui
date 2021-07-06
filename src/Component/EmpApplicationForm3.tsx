@@ -260,13 +260,23 @@ function EmpApplicationForm3(props: Props) {
   const saveData = async (data:any,saveOnly:boolean) => {
 
     data.lastFiveYearStatesOperate = listOfStates;
-    {
-      setSignatureError("");
-      setSignatureHelperTextError(false);
-      base64SignatureImage = sigPad.current
-        .getCanvas()
-        .toDataURL("image/png");
-    }
+    // data.applicantAddresses = UpdateAddressesList;
+
+    if(!(data.applicantAddresses)) data.applicantAddresses = [];
+    if(!(data.employmentHistory)) data.employmentHistory = [];
+    if(!(data.employmentAccidentsHistory)) data.employmentAccidentsHistory = [];
+    if(!(data.employmentExperienceHistory)) data.employmentExperienceHistory = [];
+    if(!(data.violations)) data.violations = [];
+    if(!(data.licences)) data.licences = [];
+    if(!(data.references)) data.references = [];
+
+
+    setSignatureError("");
+    setSignatureHelperTextError(false);
+    base64SignatureImage = sigPad.current
+      .getCanvas()
+      .toDataURL("image/png");
+
     if (sigPad.current && sigPad.current.isEmpty()) {
       data.signature = "";
     }
@@ -1121,7 +1131,7 @@ function EmpApplicationForm3(props: Props) {
                             defaultValues={listOfStates}
                             setListFunction={setListOfStates}
                             form={Forms}
-                            reqBit={reqBits.lastFiveYearStatesOperate}
+                            reqBit={false}
                             label="List states operated in, for the last five (5) years: "
                             className="col-10"
                           />

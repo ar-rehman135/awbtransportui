@@ -234,7 +234,7 @@ class EmploymentApplication extends Component<
               ) : (
                 ""
               )}
-              {this.state.formCounter == 7 ? (
+              {/* {this.state.formCounter == 7 ? (
                 <EmpApplicationForm8
                   data={this.context.data}
                   handler={[this.gotoNextForm, this.gotoPreviousForm]}
@@ -242,8 +242,8 @@ class EmploymentApplication extends Component<
                 ></EmpApplicationForm8>
               ) : (
                 ""
-              )}
-              {this.state.formCounter == 8 ? (
+              )} */}
+              {this.state.formCounter == 7 ? (
                 <EmpApplicationAllDataFilled
                   data={this.context.data}
                   handler={[this.gotoNextForm, this.gotoPreviousForm]}
