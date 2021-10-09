@@ -1,10 +1,11 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Address,
   EmploymentAccidentHistories,
   resolveOverFlowYearIssue,
 } from "../../Common/CommonVariables";
 import {
+  Box,
   Button,
   Divider,
   FormControl,
@@ -68,15 +69,8 @@ let addr = {
 
 export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
   const classes = styleClasses.useStyles();
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    trigger,
-    setError,
-    errors,
-  } = props.useForm;
+  const { register, control, handleSubmit, reset, trigger, setError, errors } =
+    props.useForm;
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
@@ -84,11 +78,11 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
     }
   );
 
-  useEffect(()=>{
-    if(fields.length === 0){
+  useEffect(() => {
+    if (fields.length === 0) {
       append(props.employmentAccidentHistoryList);
     }
-  },[]);
+  }, []);
 
   const submit = (e: any) => {
     e.preventDefault();
@@ -111,18 +105,19 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
               id="panel1a-header"
             >
               <Typography className={classes.heading}>
-                Accident Record for past three (3) years: {index + 1}
+                Adding Accidents # {index + 1}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid
                 container
                 direction="row"
-                justify="space-around"
-                alignItems="baseline"
+                justify="space-between"
+                alignItems="center"
                 spacing={3}
               >
-                <Grid item xs={4}>
+                <Grid item xs={12}>
+                  
                   <TextField
                     variant="outlined"
                     error={
@@ -142,86 +137,114 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     }}
                     name={`${props.idPrefix}[${index}].dateOfAccident`}
                     defaultValue={item.dateOfAccident}
-                    helperText={reqBits.dateOfAccident && RequireError + " Date of Accident"}
+                    helperText={
+                      reqBits.dateOfAccident && RequireError + "Accident Date*"
+                    }
                     type="date"
                     size="small"
                     className="col-12"
                   ></TextField>
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    variant="outlined"
-                    defaultValue={item.numberofFatalities}
-                    label="Num of Fatalities"
-                    error={
-                      errors &&
-                      errors[props.idPrefix] &&
-                      errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].numberofFatalities
-                    }
-                    inputRef={register({
-                      required: {
-                        value: reqBits.numberofFatalities,
-                        message: RequireError,
-                      },
-                    })}
-                    helperText={reqBits.numberofFatalities && RequireError}
-                    name={`${props.idPrefix}[${index}].numberofFatalities`}
+                  </Grid>
+                <Grid item xs={6} style={{ padding: "10px 10px" }}>
+                  <Button
                     size="small"
-                    type="text"
-                    className="col-12"
-                  ></TextField>
+                    className="col-8"
+                    variant="contained"
+                    onClick={() => {
+                      //if (index > 0) {
+                      remove(index);
+                      //}
+                    }}
+                  >
+                    Add Accident
+                  </Button>
                 </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    variant="outlined"
-                    defaultValue={item.numberofPeopleleInjured}
-                    label="Number of Injured People"
-                    error={
-                      errors &&
-                      errors[props.idPrefix] &&
-                      errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].numberofPeopleleInjured
-                    }
-                    inputRef={register({
-                      required: {
-                        value: reqBits.numberofPeopleleInjured,
-                        message: RequireError,
-                      },
-                    })}
-                    helperText={reqBits.numberofPeopleleInjured && RequireError}
-                    name={`${props.idPrefix}[${index}].numberofPeopleleInjured`}
-                    size="small"
-                    className="col-12"
-                    type="number"
-                  ></TextField>
-                </Grid>
+                
+
                 <Grid item xs={12}>
+                <Grid item xs={6}>
+                    <Typography>Was the accident DOT recordable?</Typography></Grid>
+                    <Grid item xs={6}>
+                    <RadioGroup
+                      row
+                      aria-label=""
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="Yes"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                    </RadioGroup>
+                    </Grid>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                    <Grid item xs={6}></Grid>
+                    <Typography className="abc"> Was the accident preventable? </Typography></Grid>
+                    <Grid item xs={6}>
+                    <RadioGroup
+                      row
+                      aria-label=""
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="Yes"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                      <FormControlLabel
+                        value="No"
+                        control={<Radio />}
+                        label="No"
+                      />
+                    </RadioGroup>
+                  
+                  </Grid>
+                  
+
+                  <Grid item xs={12}>
+                    <Grid item xs={6}>
+                  <Typography>
+                    In What city and state did the accident accur?
+                  </Typography></Grid>
+                  <Grid item xs={6}>
+                  
                   <TextField
-                    id="outlined-multiline-static"
-                    size="small"
-                    defaultValue={item.NumberOfAccidents}
-                    label="Nature of Accidents"
-                    error={
-                      errors &&
-                      errors[props.idPrefix] &&
-                      errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].NumberOfAccidents
-                    }
-                    inputRef={register({
-                      required: {
-                        value: reqBits.NumberOfAccidents,
-                        message: RequireError,
-                      },
-                    })}
-                    name={`${props.idPrefix}[${index}].NumberOfAccidents`}
-                    multiline
-                    rows={4}
-                    variant="outlined"
-                    className="col-12"
+                   required
+                   id="outlined-required"
+                   label="Required"
+                   defaultValue=""
                   />
-                </Grid>
-                <Grid item xs={12}>
+                  </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                  <Grid item xs={6}>
+                  <Typography> Did the accident involve a hazardous material </Typography> </Grid>
+                    <FormControl>
+                    <Grid item xs={6}
+                    <RadioGroup
+                      row=""
+                      aria-label=""
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="Yes"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                      <FormControlLabel
+                        value="No"
+                        control={<Radio />}
+                        label="No"
+                      />
+                    </RadioGroup></FormControl>
+                     </Grid>
+                    </Grid>
+                   <Grid item xs={12}>
+                   <Grid item xs={6}>
+                  <Typography>Describe the accident*</Typography></Grid>
+                  <Grid item xs={6}>
                   <TextField
                     id="outlined-multiline-static"
                     defaultValue={item.LocationOfAccidents}
@@ -242,52 +265,45 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     name={`${props.idPrefix}[${index}].LocationOfAccidents`}
                     size="small"
                     multiline
-                    rows={4}
+                    rows={6}
                     variant="outlined"
                     className="col-12"
                   />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </AccordionDetails>
-            <AccordionActions
-              style={{
-                justifyContent: "center",
-                padding: "20px 20px",
-              }}
-            >
-              <Grid item xs={6} style={{ padding: "20px 10px" }}>
-                <Button
-                  size="small"
-                  className="col-6"
-                  variant="contained"
-                  color="default"
-                  onClick={() => {
-                    //if (index > 0) {
-                      remove(index);
-                    //}
-                  }}
-                >
-                  Delete Entry
-                </Button>
-              </Grid>
-            </AccordionActions>
-          </Accordion>
-        ))}
-        <Grid item xs={12} style={{ padding: "20px 10px" }}>
-          <Button
-            size="small"
-            className="col-3"
-            variant="contained"
-            color="primary"
-            onClick={() =>
-              append({
-                addr,
-              })
-            }
-          >
-            Add More
-          </Button>
-        </Grid>
+                <Grid item xs={12}>
+                  <Grid item xs={6}>
+                  <Typography>Any other comments?</Typography></Grid>
+                  <Grid item xs={6}>
+                  <TextField
+                    id="outlined-multiline-static"
+                    defaultValue={item.LocationOfAccidents}
+                    label="Location of Accident"
+                    error={
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].LocationOfAccidents
+                    }
+                    inputRef={register({
+                      required: {
+                        value: reqBits.LocationOfAccidents,
+                        message: RequireError,
+                      },
+                    })}
+                    helperText={reqBits.LocationOfAccidents && RequireError}
+                    name={`${props.idPrefix}[${index}].LocationOfAccidents`}
+                    size="small"
+                    multiline
+                    rows={6}
+                    variant="outlined"
+                    className="col-12"
+                  />
+                  </Grid>
+                </Grid>
+
+             </AccordionDetails>
+    </Grid>
       </Grid>
     </React.Fragment>
   );
