@@ -165,8 +165,7 @@ export default function EmpApplicationForm8(props: Props) {
     data.alien_authorized = manualStates.alien_authorized;
     // console.log(data);
     // console.log(manualStates);
-    let resdata;
-    resdata = await update(data);
+    let resdata = await update(data) as any;
     if (resdata.data){
       try {
         // console.log(resdata);

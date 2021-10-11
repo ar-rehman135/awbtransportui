@@ -299,8 +299,7 @@ function EmpApplicationForm3(props: Props) {
     data.user_name = props.data.user_name;
     // console.log("FOrm3");
     // console.log(data);
-    let resdata;
-    resdata = await update(data);
+    let resdata = await update(data) as unknown as any;
     if (resdata.data) {
       try {
         // console.log(resdata);
@@ -935,7 +934,7 @@ function EmpApplicationForm3(props: Props) {
                         className={classes.heading}
                         style={{ textAlign: "center", margin: "10px 0px" }}
                       >
-                        ADDRESS
+                        Aimr
                       </Grid>
 
                       <Grid item xs={10}>
@@ -1380,7 +1379,7 @@ function EmpApplicationForm3(props: Props) {
                             ...licenseQuestionBits,
                             permitLicences: true,
                           });
-                        } else     {
+                        } else {
                           setLicenseQuestionBits({
                             ...licenseQuestionBits,
                             permitLicences: false,

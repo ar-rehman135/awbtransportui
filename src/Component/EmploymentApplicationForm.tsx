@@ -24,7 +24,7 @@ import {
   drivingExperienceDummyElement,
   driverLicenseDummyElement,
   ReferenceDummyElement,
-  trafficConvictionDummyElement
+  trafficConvictionDummyElement,
 } from "../Common/CommonVariables";
 import { for_production } from "../shared/baseUrl";
 
@@ -40,17 +40,14 @@ const styles = (theme: Theme) => ({
   root: {},
 });
 
-
-
 class EmploymentApplication extends Component<
   EmploymentApplicationProps,
   EmploymentApplicationStates
 > {
-
   constructor(props: any) {
     super(props);
     this.state = {
-      formCounter: (for_production===true)?(3):(3),
+      formCounter: for_production === true ? 3 : 3,
     };
 
     this.gotoNextForm = this.gotoNextForm.bind(this);
@@ -61,81 +58,115 @@ class EmploymentApplication extends Component<
     // console.log("this.context.data");
     // console.log(this.context.data);
 
-    if(!this.context.data.companyName || this.context.data.companyName === "") {
+    if (
+      !this.context.data.companyName ||
+      this.context.data.companyName === ""
+    ) {
       this.context.data.companyName = "AWB Transport Inc";
     }
 
-    if(!this.context.data.companyAddress || this.context.data.companyAddress === "") {
-      this.context.data.companyAddress = "5751 La Venta Way";  
+    if (
+      !this.context.data.companyAddress ||
+      this.context.data.companyAddress === ""
+    ) {
+      this.context.data.companyAddress = "5751 La Venta Way";
     }
 
-    if(!this.context.data.companyCity || this.context.data.companyCity === "") {
+    if (
+      !this.context.data.companyCity ||
+      this.context.data.companyCity === ""
+    ) {
       this.context.data.companyCity = "Sacramento";
     }
 
-    if(!this.context.data.companyState || this.context.data.companyState === "") {
+    if (
+      !this.context.data.companyState ||
+      this.context.data.companyState === ""
+    ) {
       this.context.data.companyState = states[8].value;
     }
 
-    if(!this.context.data.companyPostCode || this.context.data.companyPostCode === "") {
+    if (
+      !this.context.data.companyPostCode ||
+      this.context.data.companyPostCode === ""
+    ) {
       this.context.data.companyPostCode = "95835";
     }
 
-
-    if (!this.context.data.applicantAddresses || this.context.data.applicantAddresses.length == 0) {
+    if (
+      !this.context.data.applicantAddresses ||
+      this.context.data.applicantAddresses.length == 0
+    ) {
       this.context.data.applicantAddresses = [dummyAddrData];
     }
-    
-    if (!this.context.data.addresses || this.context.data.addresses.length === 0) {
+
+    if (
+      !this.context.data.addresses ||
+      this.context.data.addresses.length === 0
+    ) {
       this.context.data.addresses = [dummyAddrData];
     }
 
- 
-    if (!this.context.data.employmentHistory || this.context.data.employmentHistory.length === 0) {
+    if (
+      !this.context.data.employmentHistory ||
+      this.context.data.employmentHistory.length === 0
+    ) {
       this.context.data.employmentHistory = [employmentHistoryDummyElement];
     }
 
- 
-    if (!this.context.data.employmentAccidentsHistory || this.context.data.employmentAccidentsHistory.length === 0) {
-      this.context.data.employmentAccidentsHistory = [employmentAccidentHistoryDummyElement];
+    if (
+      !this.context.data.employmentAccidentsHistory ||
+      this.context.data.employmentAccidentsHistory.length === 0
+    ) {
+      this.context.data.employmentAccidentsHistory = [
+        employmentAccidentHistoryDummyElement,
+      ];
     }
 
- 
-    if (!this.context.data.employmentExperienceHistory || this.context.data.employmentExperienceHistory.length === 0) {
-      this.context.data.employmentExperienceHistory = [drivingExperienceDummyElement];
+    if (
+      !this.context.data.employmentExperienceHistory ||
+      this.context.data.employmentExperienceHistory.length === 0
+    ) {
+      this.context.data.employmentExperienceHistory = [
+        drivingExperienceDummyElement,
+      ];
     }
- 
-    if (!this.context.data.licences || this.context.data.licences.length === 0) {
+
+    if (
+      !this.context.data.licences ||
+      this.context.data.licences.length === 0
+    ) {
       this.context.data.licences = [driverLicenseDummyElement];
     }
 
-  
-    if (!this.context.data.references || this.context.data.references.length === 0) {
+    if (
+      !this.context.data.references ||
+      this.context.data.references.length === 0
+    ) {
       this.context.data.references = [ReferenceDummyElement];
     }
 
-  
-    if (!this.context.data.violations || this.context.data.violations.length === 0) {
+    if (
+      !this.context.data.violations ||
+      this.context.data.violations.length === 0
+    ) {
       this.context.data.violations = [trafficConvictionDummyElement];
     }
 
     this.context.data.applicantfirstName = this.context.data.first_name;
     this.context.data.applicantLastName = this.context.data.last_name;
-
   }
 
   componentDidMount() {
-    
     if (!this.context.data.user_name) {
       return <Redirect to="/login" />;
     }
-    
+
     if (this.context.data.user_name) {
       this.setState(this.context.data);
     }
 
     this.insertDummyData();
-
   }
 
   gotoNextForm() {
@@ -151,18 +182,18 @@ class EmploymentApplication extends Component<
   }
 
   render() {
-  //console.log(this.context.data);
+    //console.log(this.context.data);
 
     if (!this.context.data.user_name) {
       return <Redirect to="/login" />;
     }
- 
+
     this.insertDummyData();
 
     return (
       <>
         <NavbarCareer addLogout={true} />
-        <div className="container-fluid" style={{minWidth:"700px"}}>
+        <div className="container-fluid" style={{ minWidth: "700px" }}>
           <div className="row">
             {/* <div
               className="col mySideBar"
