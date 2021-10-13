@@ -28,8 +28,6 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
-// import Grid from "@material-ui/core/Grid";
-
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AccordionActions from "@material-ui/core/AccordionActions";
 import DateFnsUtils from "@date-io/date-fns";
@@ -49,7 +47,6 @@ import {
 import { update } from "../../services/updateApi";
 import RadioQuestions from "../SubComponents/RadioQuestions";
 import ReactHookFormSelect from "../SubComponents/ReactHookFormSelect";
-
 
 type Props = {
   idPrefix: string;
@@ -99,237 +96,351 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
         direction="row"
         justify="space-between"
         alignItems="center"
-      > 
+      >
         {fields.map((item, index) => (
-          <Accordion defaultExpanded elevation={3} key={item.id}>
+          <Accordion defaultExpanded elevation={3} style={{paddingBottom:20}} key={item.id}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              
-              <Typography className={classes.heading}>
+              <Typography className={classes.heading} style={{marginLeft: 33}}>
                 Adding Accidents # {index + 1}
               </Typography>
             </AccordionSummary>
-               <Grid item xs={12}
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-                spacing={3}
-               >
-                  <Grid item xs={6}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              spacing={3}
+            >
+              <Grid item md={5}>
+                <TextField
+                  variant="outlined"
+                  style={{marginLeft: 42}}
+                  error={
+                    errors &&
+                    errors[props.idPrefix] &&
+                    errors[props.idPrefix][index] &&
+                    errors[props.idPrefix][index].dateOfAccident
+                  }
+                  inputRef={register({
+                    required: {
+                      value: reqBits.dateOfAccident,
+                      message: RequireError,
+                    },
+                  })}
+                  inputProps={{
+                    max: resolveOverFlowYearIssue(),
+                  }}
+                  name={`${props.idPrefix}[${index}].dateOfAccident`}
+                  defaultValue={item.dateOfAccident}
+                  helperText={
+                    reqBits.dateOfAccident && RequireError + "Accident Date*"
+                  }
+                  type="date"
+                  size="small"
+                  className="col-10"
+                ></TextField>
+              </Grid>
+              <Grid item md={5} style={{ padding: "10px 10px" }}>
+                <Button
+                  size="small"
+                  className="col-8"
+                  variant="contained"
+                  onClick={() => {
+                    //if (index > 0) {
+                    remove(index);
+                    //}
+                  }}
+                >
+                  Add Accident
+                </Button>
+              </Grid>
+              <Grid item md={10}>
+                <Grid item md={5} style={{marginLeft: 40}}>
+                  <Typography className="def">
+                    Was the accident DOT recordable?
+                  </Typography>
+                </Grid>
+                <Grid item md={5} style={{marginLeft: 50}}>
+                  <RadioGroup  row  >
+                    <FormControlLabel
                     
-                    <TextField
-                      variant="outlined"
-                      error={
-                        errors &&
-                        errors[props.idPrefix] &&
-                        errors[props.idPrefix][index] &&
-                        errors[props.idPrefix][index].dateOfAccident
-                      }
-                      inputRef={register({
-                        required: {
-                          value: reqBits.dateOfAccident,
-                          message: RequireError,
-                        },
-                      })}
-                      inputProps={{
-                        max: resolveOverFlowYearIssue(),
-                      }}
-                      name={`${props.idPrefix}[${index}].dateOfAccident`}
-                      defaultValue={item.dateOfAccident}
-                      helperText={
-                        reqBits.dateOfAccident && RequireError + "Accident Date*"
-                      }
-                      type="date"
-                      size="small"
-                      className="col-12"
-                    ></TextField>
-                  </Grid>
-                  <Grid item xs={6} style={{ padding: "0px 0px" }}>
-                    <Button
-                      size="small"
-                      className="col-8"
-                      variant="contained"
-                      onClick={() => {
-                        //if (index > 0) {
-                        remove(index);
-                        //}
-                      }}>
-                      Add Accident
-                    </Button>
-                  </Grid>
-                  <Grid item md={10}>
-                    <Grid item md={5}>
-                        <Typography className="def">Was the accident DOT recordable?</Typography>
-                    </Grid>
-                    <Grid item md={5}>
-                    <RadioGroup
-                      row
-                      aria-label=""
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        value="Yes"
-                        control={<Radio />}
-                        label="Yes"
-                      ></FormControlLabel>
-                       <FormControlLabel
-                        value="No"
-                        control={<Radio />}
-                        label="No"
-                      ></FormControlLabel>
-                    </RadioGroup>
-                    </Grid>
-                  </Grid>
-                  <Grid item md={10}>
-                    <Grid item md={5}>
-                    <Typography className="abc">Was the accident preventable?</Typography>
-                    </Grid>
-                    <Grid item md={5}>
-                      <RadioGroup
-                      row
-                      aria-label=""
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        value="Yes"
-                        control={<Radio />}
-                        label="Yes"
-                      ></FormControlLabel>
-                      <FormControlLabel
-                        value="No"
-                        control={<Radio />}
-                        label="No"
-                      ></FormControlLabel>
-                      </RadioGroup>
-                    </Grid>
-                  </Grid>
-                  <Grid container style={{ display: 'flex', flexDirection: 'row'}}>
+                      value="Yes"
+                      control={<Radio/>}
+                      label="Yes"
+                    ></FormControlLabel>
+                    <FormControlLabel
+                    
+                      value="No"
+                      control={<Radio/>}
+                      label="No"
+                    ></FormControlLabel>
+                  </RadioGroup>
+                </Grid>
+              </Grid>
+              <Grid item md={10}style={{margin:0,padding:0}}>
+                <Grid item md={5}style={{marginLeft:29}}>
+                  <Typography className="abc">
+                    Was the accident preventable?
+                  </Typography>
+                </Grid>
+                <Grid item md={5}style={{marginLeft: 70}}>
+                  <RadioGroup row aria-label="" name="row-radio-buttons-group">
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    ></FormControlLabel>
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio/>}
+                      label="No"
+                    ></FormControlLabel>
+                  </RadioGroup>
+                </Grid>
+              </Grid>
+              <Grid container style={{ display: "flex", flexDirection: "row" }}>
+                <Grid item xs={4} style={{marginLeft: 30}}>
+                  <Typography>
+                    In What city and state did the accident accur?
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <label className="mdc-text-field mdc-text-field--filled">
+                    {/* <span className="mdc-text-field__ripple"></span> */}
+                    {/* <span className="mdc-floating-label" id="my-label-id">Hint text</span> */}
+                    <input
+                      className="mdc-text-field__input"
+                      type="text"
+                      aria-labelledby="my-label-id"
+                    ></input>
+                    <span className="mdc-line-ripple"></span>
+                  </label>
+                </Grid>
+                <Grid item xs={3} style={{marginLeft: 10}}>
+                  <label className="mdc-text-field mdc-text-field--outlined">
+                    <span className="mdc-notched-outline">
+                      <span className="mdc-notched-outline__leading"></span>
+                      <span className="mdc-notched-outline__notch">
+                        {/* <span className="mdc-floating-label" id="my-label-id">Your Name</span> */}
+                      </span>
+                      <span className="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <input
+                      type="text"
+                      className="mdc-text-field__input"
+                      aria-labelledby="my-label-id"
+                    ></input>
+                  </label>
+                </Grid>
+              </Grid>
+              <Grid container style={{ display: "flex", flexDirection: "row" }}>
+                <Grid item md={5} style={{marginLeft: 25}}>
+                  <Typography>
+                    How many people were injured in the accident?
+                  </Typography>
+                </Grid>
+                <Grid item md={3} style={{marginBottom: 10}}>
+                <TextField
+                  id="outlined-number"
+                  type="number"
+                  rows={1}
+                  variant="outlined"
+                  style={{width: 80}}
+                  size="small"
+                  // InputLabelProps={{
+                  // shrink: true,
+                  // }}
+                  />
+                  {/* <ReactHookFormSelect
+                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
+                    label="State"
+                    control={control}
+                    forms={props.useForm}
+                    defaultValue={item.stateOfLicence}
+                    variant="outlined"
+                    size="small"
+                    className="col-12"
+                    isReq={reqBits.stateOfLicence}
+                    error={
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].stateOfLicence
+                    }
+                    isPartOfDynamicComponent={true}
+                    parentId={props.idPrefix}
+                    childSubId="stateOfLicence"
+                    parentIndex={index}
+                  >
+                    <option aria-label="None" value="" />
 
-    
-                        <Grid item md={4}>
-                          <Typography>
-                            In What city and state did the accident accur?
-                          </Typography>
-                      </Grid>
-                      
-                      <Grid item md={4}>
-                    <TextField
-                       size="small"
-                      multiline
-                      rows={3}
-                      
-                      variant="outlined"
-                      className="col-12"
-                      
-                    ></TextField>
-                    </Grid>
-                   <Grid item md={4}>
-                     <TextField
-                       size="small"
-                      multiline
-                      rows={3}
-                      
-                      variant="outlined"
-                      className="col-12"
-                      
-                    ></TextField>
-                    </Grid>
-                    </Grid>
-                
-                  <Grid item xs={10}>
-                    <Grid item xs={5}>
-                    <Typography className="abc"> Was the accident preventable? </Typography></Grid>
-                    <Grid item xs={5}>
-                    <RadioGroup
-                      row
-                      aria-label=""
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        value="Yes"
-                        control={<Radio />}
-                        label="Yes"
-                      />
-                      <FormControlLabel
-                        value="No"
-                        control={<Radio />}
-                        label="No"
-                      />
-                    </RadioGroup>
+                    {states.map(function (object: any, i: number) {
+                      return (
+                        <option value={object.value} key={i}>
+                          {object.value}
+                        </option>
+                      );
+                    })}
+                  </ReactHookFormSelect> */}
+                </Grid>{" "}
+              </Grid>
+
+              <Grid container style={{ display: "flex", flexDirection: "row" }}>
+                <Grid item md={5} style={{marginLeft: 25}}>
+                  <Typography>
+                    How many fatalitties were there in the accident?
+                  </Typography>
+                </Grid>
+                <Grid item md={3}>
+                <TextField
+                  id="outlined-number"
+                  type="number"
+                  rows={1}
+                  variant="outlined"
+                  style={{width: 80}}
+                  size="small"
                   
-                  </Grid>
-                  </Grid>
-                  <Grid container>
-                    <Grid item xs={4}>
-                      <Typography>Describe the accident*</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                    <TextField
-                      // id="outlined-multiline-static"
-                      // defaultValue={item.LocationOfAccidents}
-                      // label="Location of Accident"
-                      // error={
-                      //   errors &&
-                      //   errors[props.idPrefix] &&
-                      //   errors[props.idPrefix][index] &&
-                      //   errors[props.idPrefix][index].LocationOfAccidents
-                      // }
-                      // inputRef={register({
-                      //   required: {
-                      //     value: reqBits.LocationOfAccidents,
-                      //     message: RequireError,
-                      //   },
-                      // })}
-                      // helperText={reqBits.LocationOfAccidents && RequireError}
-                      // name={`${props.idPrefix}[${index}].LocationOfAccidents`}
-                      size="small"
-                      multiline
-                      rows={6}
-                      variant="outlined"
-                      className="col-12"
-                    ></TextField>
-                    </Grid>
-                  </Grid>
-                  <Grid container>
-                    <Grid item xs={4}>
-                      <Typography>Any other comments?</Typography>
-                    </Grid>
-                      <Grid item xs={8}>
-                        <TextField
-                          // id="outlined-multiline-static"
-                          // defaultValue={item.LocationOfAccidents}
-                          // label="Location of Accident"
-                          // error={
-                          //   errors &&
-                          //   errors[props.idPrefix] &&
-                          //   errors[props.idPrefix][index] &&
-                          //   errors[props.idPrefix][index].LocationOfAccidents
-                          // }
-                          // inputRef={register({
-                          //   required: {
-                          //     value: reqBits.LocationOfAccidents,
-                          //     message: RequireError,
-                          //   },
-                          // })}
-                          // helperText={reqBits.LocationOfAccidents && RequireError}
-                          // name={`${props.idPrefix}[${index}].LocationOfAccidents`}
-                          size="small"
-                           multiline
-                          rows={6}
-                          variant="outlined"
-                          className="col-12"
-                        />
-                      </Grid>
-                  </Grid>
-               </Grid>
+                  // InputLabelProps={{
+                  // shrink: true,
+                  // }}
+                  />
+                  {/* <ReactHookFormSelect
+                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
+                    label="State"
+                    control={control}
+                    forms={props.useForm}
+                    defaultValue={item.stateOfLicence}
+                    variant="outlined"
+                    size="small"
+                    className="col-12"
+                    isReq={reqBits.stateOfLicence}
+                    error={
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].stateOfLicence
+                    }
+                    isPartOfDynamicComponent={true}
+                    parentId={props.idPrefix}
+                    childSubId="stateOfLicence"
+                    parentIndex={index}
+                  >
+                    <option aria-label="None" value="" />
+
+                    {states.map(function (object: any, i: number) {
+                      return (
+                        <option value={object.value} key={i}>
+                          {object.value}
+                        </option>
+                      );
+                    })}
+                  </ReactHookFormSelect> */}
+                </Grid>
+              </Grid>
+              <Grid item md={10}>
+                <Grid item md={5} style={{marginLeft: 19}}>
+                  <Typography className="abc">
+                    {" "}
+                    Was the accident preventable?{" "}
+                  </Typography>
+                </Grid>
+                <Grid item md={5} style={{marginLeft: 60}}>
+                  <RadioGroup row aria-label="" name="row-radio-buttons-group">
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio/>}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio/>}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                style={{ display: "flex", flexDirection: "row" }}
+                spacing={2}
+              >
+                <Grid item md={6} style={{marginLeft: 30 }}>
+                  <Typography>
+                    What was the employee/independent contractor driving in the
+                    accident?
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}style={{width:10}}>
+                  <ReactHookFormSelect
+                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
+                    label="State"
+                    
+                    control={control}
+                    forms={props.useForm}
+                    defaultValue={item.stateOfLicence}
+                    variant="outlined"
+                    size="small"
+                    className="col-12"
+                    isReq={reqBits.stateOfLicence}
+                    error={
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].stateOfLicence
+                    }
+                    isPartOfDynamicComponent={true}
+                    parentId={props.idPrefix}
+                    childSubId="stateOfLicence"
+                    parentIndex={index}
+                  >
+                    <option aria-label="None" value="" />
+
+                    {states.map(function (object: any, i: number) {
+                      return (
+                        <option value={object.value} key={i}>
+                          {object.value}
+                        </option>
+                      );
+                    })}
+                  </ReactHookFormSelect>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item md={4} style={{marginLeft: 0}}>
+                  <Typography>Describe the accident*</Typography>
+                </Grid>
+                <Grid item md={6}style={{marginBottom: 10}}>
+                  <TextField
+                    size="small"
+                    multiline
+                    rows={3}
+                    variant="outlined"
+                    className="col-10"
+                  ></TextField>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item md={4} style={{marginLeft: 0}}>
+                  <Typography>Any other comments?</Typography>
+                </Grid>
+                <Grid item md={6}>
+                  <TextField
+                    size="small"
+                    multiline
+                    rows={3}
+                    variant="outlined"
+                    className="col-10"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
           </Accordion>
-        ))
-        }
+        ))}
       </Grid>
-        
-</React.Fragment>
-  )}
+    </React.Fragment>
+  );
+}

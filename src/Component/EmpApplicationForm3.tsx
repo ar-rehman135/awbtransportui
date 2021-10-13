@@ -299,7 +299,7 @@ function EmpApplicationForm3(props: Props) {
     data.user_name = props.data.user_name;
     // console.log("FOrm3");
     // console.log(data);
-    let resdata = await update(data) as unknown as any;
+    let resdata = (await update(data)) as unknown as any;
     if (resdata.data) {
       try {
         // console.log(resdata);
@@ -934,7 +934,7 @@ function EmpApplicationForm3(props: Props) {
                         className={classes.heading}
                         style={{ textAlign: "center", margin: "10px 0px" }}
                       >
-                        Aimr
+                        ADDRESS
                       </Grid>
 
                       <Grid item xs={10}>
@@ -1239,19 +1239,35 @@ function EmpApplicationForm3(props: Props) {
 
             <Grid item xs={12} sm={12} md={10}>
               <Paper
-                style={{ margin: "10px 0px" }}
-                elevation={3}
+                elevation={12}
                 className={(classes.heading, classes.paperProminantStyle)}
               >
-                <Typography className={classes.heading}>
-                  List of accident history
-                </Typography>
-                {/* <Typography className={classes.checkbox} >amir</Typography>
-                <Typography className={classes.account}>List of accident </Typography>  */}
+                <Grid className="row">
+                  <Grid
+                    item
+                    md={6}
+                    style={{ display: "flex", flexDirection: "row", marginLeft: 75 }}
+                  >
+                    <Checkbox inputProps={{ "aria-label": "controlled" }} />
+                    <Typography style={{ marginTop: 10 }}>
+                      No Accidents
+                    </Typography>
+                    
+                  </Grid>
+                  
+                  {/* <Grid item md={6}style={{ display: "flex", flexDirection: "row"}}>
+                <Checkbox inputProps={{ "aria-label": "controlled" }} />
+                    <Typography style={{ marginTop: 10 }}>
+                      No Accident
+                    </Typography>
+                </Grid> */}
+                
+                
+                </Grid>
 
-                <div className="row">
-                  <div className="col-1"></div>
-                  <div className="col-10 mt-2">
+                <Grid className="row">
+                  <Grid className="col-1"></Grid>
+                  <Grid className="col-10 mt-2">
                     <DynamicEmploymentAccidentHistoryComponent
                       idPrefix="employmentAccidentsHistory"
                       employmentAccidentHistoryList={
@@ -1262,9 +1278,9 @@ function EmpApplicationForm3(props: Props) {
                         updateEmploymentAccidentHistoryList
                       }
                     ></DynamicEmploymentAccidentHistoryComponent>
-                  </div>
-                  <div className="col-1"></div>
-                </div>
+                  </Grid>
+                  <Grid className="col-1"></Grid>
+                </Grid>
               </Paper>
             </Grid>
 
