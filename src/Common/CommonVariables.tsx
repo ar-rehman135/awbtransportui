@@ -63,6 +63,12 @@ export const states = [
   { value: "WY - Wyoming" },
 ];
 
+export const Required: string="Required*";
+export const driving=[
+  { value: "Employee"},
+  { value: "Contractor"},
+];
+
 export const statesAbbrivations = [
   { value: "AA" },
   { value: "AP" },
@@ -824,6 +830,19 @@ export let dummyAddrData = {
   lastYearAddressZipCode: "",
   lastYearAddressfrom: "",
   lastYearAddressTo: "",
+};
+export let dummyAddaccidendData = {
+  dateOfAccident:"",
+  recordableAccident:"",
+  preventableAccident:"",
+  accidentAccur:"",
+  stateOfLicence:"",
+  injuredPeople:"",
+  fatalittiesInAccident:"",
+  preventableAccidents:"",
+  drivingInTheAccident:"",
+  accidentDescribe:"",
+  anyComments:"",
 };
 export const startTimeVal = [
   { value: "Immediately" },

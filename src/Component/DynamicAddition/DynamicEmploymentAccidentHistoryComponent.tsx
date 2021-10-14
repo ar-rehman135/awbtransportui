@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   Address,
+  driving,
   EmploymentAccidentHistories,
   resolveOverFlowYearIssue,
 } from "../../Common/CommonVariables";
@@ -43,10 +44,13 @@ import {
   reqBits,
   states,
   AddressErrorsList,
+  
 } from "../../Common/CommonVariables";
 import { update } from "../../services/updateApi";
 import RadioQuestions from "../SubComponents/RadioQuestions";
 import ReactHookFormSelect from "../SubComponents/ReactHookFormSelect";
+
+
 
 type Props = {
   idPrefix: string;
@@ -66,12 +70,26 @@ let addr = {
   lastYearAddressfrom: "1990-01-01",
   lastYearAddressTo: "1990-01-01",
 };
+ let dummyAddaccidendData = {
+  dateOfAccident:"",
+  recordableAccident:"",
+  preventableAccident:"",
+  accidentAccur:"",
+  stateOfLicence:"",
+  injuredPeople:"",
+  fatalittiesInAccident:"",
+  preventableAccidents:"",
+  drivingInTheAccident:"",
+  accidentDescribe:"",
+  anyComments:"",
+};
+
 
 export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
   const classes = styleClasses.useStyles();
   const { register, control, handleSubmit, reset, trigger, setError, errors } =
     props.useForm;
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+  const { fields, append, prepend, remove, swap, move, insert} = useFieldArray(
     {
       control,
       name: props.idPrefix,
@@ -86,9 +104,8 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
 
   const submit = (e: any) => {
     e.preventDefault();
-    //console.log(e.target.data);
+   
   };
-
   return (
     <React.Fragment>
       <Grid
@@ -144,7 +161,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   className="col-10"
                 ></TextField>
               </Grid>
-              <Grid item md={5} style={{ padding: "10px 10px" }}>
+              {/* <Grid item md={5} style={{ padding: "10px 10px" }}>
                 <Button
                   size="small"
                   className="col-8"
@@ -157,7 +174,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                 >
                   Add Accident
                 </Button>
-              </Grid>
+              </Grid> */}
               <Grid item md={10}>
                 <Grid item md={5} style={{marginLeft: 40}}>
                   <Typography className="def">
@@ -165,15 +182,13 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item md={5} style={{marginLeft: 50}}>
-                  <RadioGroup  row  >
+                  <RadioGroup  row id="recordableAccident" >
                     <FormControlLabel
-                    
                       value="Yes"
                       control={<Radio/>}
                       label="Yes"
                     ></FormControlLabel>
                     <FormControlLabel
-                    
                       value="No"
                       control={<Radio/>}
                       label="No"
@@ -188,7 +203,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item md={5}style={{marginLeft: 70}}>
-                  <RadioGroup row aria-label="" name="row-radio-buttons-group">
+                  <RadioGroup row aria-label="" name="row-radio-buttons-group" id="preventableAccident">
                     <FormControlLabel
                       value="Yes"
                       control={<Radio />}
@@ -209,32 +224,46 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <label className="mdc-text-field mdc-text-field--filled">
-                    {/* <span className="mdc-text-field__ripple"></span> */}
-                    {/* <span className="mdc-floating-label" id="my-label-id">Hint text</span> */}
-                    <input
-                      className="mdc-text-field__input"
-                      type="text"
-                      aria-labelledby="my-label-id"
-                    ></input>
-                    <span className="mdc-line-ripple"></span>
-                  </label>
+                <TextField  name={`${"employmentAccidentsHistory"}[${index}].accidentAccur`}
+                
+                    size="small"
+                    multiline
+                    rows={1}
+                    variant="outlined"
+                    className="col-11"
+                  />
                 </Grid>
-                <Grid item xs={3} style={{marginLeft: 10}}>
-                  <label className="mdc-text-field mdc-text-field--outlined">
-                    <span className="mdc-notched-outline">
-                      <span className="mdc-notched-outline__leading"></span>
-                      <span className="mdc-notched-outline__notch">
-                        {/* <span className="mdc-floating-label" id="my-label-id">Your Name</span> */}
-                      </span>
-                      <span className="mdc-notched-outline__trailing"></span>
-                    </span>
-                    <input
-                      type="text"
-                      className="mdc-text-field__input"
-                      aria-labelledby="my-label-id"
-                    ></input>
-                  </label>
+                <Grid item xs={3}style={{width:8}}>
+                  <ReactHookFormSelect
+                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
+                     label="State"
+                    control={control}
+                    forms={props.useForm}
+                    defaultValue={item.stateOfLicence}
+                    variant="outlined"
+                    size="small"
+                    className="col-12"
+                    isReq={reqBits.stateOfLicence}
+                    error={
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].stateOfLicence
+                    }
+                    isPartOfDynamicComponent={true}
+                    parentId={props.idPrefix}
+                    childSubId="stateOfLicence"
+                    parentIndex={index}
+                  >
+                    <option aria-label="None" value="" />
+                    {states.map(function (object: any, i: number) {
+                      return (
+                        <option value={object.value} key={i}>
+                          {object.value}
+                        </option>
+                      );
+                    })}
+                  </ReactHookFormSelect>
                 </Grid>
               </Grid>
               <Grid container style={{ display: "flex", flexDirection: "row" }}>
@@ -244,7 +273,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item md={3} style={{marginBottom: 10}}>
-                <TextField
+                <TextField  name={`${"employmentAccidentsHistory"}[${index}].injuredPeople`}
                   id="outlined-number"
                   type="number"
                   rows={1}
@@ -254,41 +283,14 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   // InputLabelProps={{
                   // shrink: true,
                   // }}
+                  InputProps={{
+                      inputProps: { 
+                           min: 0 
+                      }
+                  }}
                   />
-                  {/* <ReactHookFormSelect
-                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
-                    label="State"
-                    control={control}
-                    forms={props.useForm}
-                    defaultValue={item.stateOfLicence}
-                    variant="outlined"
-                    size="small"
-                    className="col-12"
-                    isReq={reqBits.stateOfLicence}
-                    error={
-                      errors &&
-                      errors[props.idPrefix] &&
-                      errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].stateOfLicence
-                    }
-                    isPartOfDynamicComponent={true}
-                    parentId={props.idPrefix}
-                    childSubId="stateOfLicence"
-                    parentIndex={index}
-                  >
-                    <option aria-label="None" value="" />
-
-                    {states.map(function (object: any, i: number) {
-                      return (
-                        <option value={object.value} key={i}>
-                          {object.value}
-                        </option>
-                      );
-                    })}
-                  </ReactHookFormSelect> */}
                 </Grid>{" "}
               </Grid>
-
               <Grid container style={{ display: "flex", flexDirection: "row" }}>
                 <Grid item md={5} style={{marginLeft: 25}}>
                   <Typography>
@@ -296,49 +298,22 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item md={3}>
-                <TextField
+                <TextField  name={`${"employmentAccidentsHistory"}[${index}].fatalittiesInAccident`}
                   id="outlined-number"
                   type="number"
                   rows={1}
                   variant="outlined"
                   style={{width: 80}}
-                  size="small"
-                  
+                  size="small" 
                   // InputLabelProps={{
                   // shrink: true,
                   // }}
-                  />
-                  {/* <ReactHookFormSelect
-                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
-                    label="State"
-                    control={control}
-                    forms={props.useForm}
-                    defaultValue={item.stateOfLicence}
-                    variant="outlined"
-                    size="small"
-                    className="col-12"
-                    isReq={reqBits.stateOfLicence}
-                    error={
-                      errors &&
-                      errors[props.idPrefix] &&
-                      errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].stateOfLicence
+                  InputProps={{
+                    inputProps: { 
+                         min: 0 
                     }
-                    isPartOfDynamicComponent={true}
-                    parentId={props.idPrefix}
-                    childSubId="stateOfLicence"
-                    parentIndex={index}
-                  >
-                    <option aria-label="None" value="" />
-
-                    {states.map(function (object: any, i: number) {
-                      return (
-                        <option value={object.value} key={i}>
-                          {object.value}
-                        </option>
-                      );
-                    })}
-                  </ReactHookFormSelect> */}
+                }}
+                  />
                 </Grid>
               </Grid>
               <Grid item md={10}>
@@ -349,7 +324,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Typography>
                 </Grid>
                 <Grid item md={5} style={{marginLeft: 60}}>
-                  <RadioGroup row aria-label="" name="row-radio-buttons-group">
+                  <RadioGroup row aria-label="" name="row-radio-buttons-group" id="preventableAccidents">
                     <FormControlLabel
                       value="Yes"
                       control={<Radio/>}
@@ -376,16 +351,15 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                 </Grid>
                 <Grid item xs={3}style={{width:10}}>
                   <ReactHookFormSelect
-                    nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
-                    label="State"
-                    
+                    nameVal={`${props.idPrefix}[${index}].drivingInTheAccident`}
+                     label=""
                     control={control}
                     forms={props.useForm}
                     defaultValue={item.stateOfLicence}
                     variant="outlined"
                     size="small"
                     className="col-12"
-                    isReq={reqBits.stateOfLicence}
+                    isReq={false}
                     error={
                       errors &&
                       errors[props.idPrefix] &&
@@ -399,7 +373,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   >
                     <option aria-label="None" value="" />
 
-                    {states.map(function (object: any, i: number) {
+                    {driving.map(function (object: any, i: number) {
                       return (
                         <option value={object.value} key={i}>
                           {object.value}
@@ -414,7 +388,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   <Typography>Describe the accident*</Typography>
                 </Grid>
                 <Grid item md={6}style={{marginBottom: 10}}>
-                  <TextField
+                  <TextField  name={`${"employmentAccidentsHistory"}[${index}].accidentDescribe`}
                     size="small"
                     multiline
                     rows={3}
@@ -428,7 +402,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   <Typography>Any other comments?</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <TextField  name={`${"employmentAccidentsHistory"}[${index}].anyComments`}
                     size="small"
                     multiline
                     rows={3}
@@ -437,9 +411,50 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   />
                 </Grid>
               </Grid>
+              <Grid item  xs={12} style={{ padding: "20px 10px" }}>
+                <Button
+                  size="small"
+                  className="col-3"
+                  variant="contained"
+                  color="default"
+                  onClick={(e) => {
+                    // if(fields.length > props.minElementLimit) 
+                    // {
+                      remove(index);
+                    // }
+                  }}
+                >
+                  Delete Entry
+                </Button>
+              </Grid>
             </Grid>
           </Accordion>
         ))}
+         <Accordion defaultExpanded elevation={12} style={{paddingBottom:20}}>
+        
+          <Grid item xs={12}>
+           <Grid style={{ width: '100%'}} > 
+         <Grid>
+          This is an info alert — check it out!
+        </Grid>
+          </Grid> 
+    
+        </Grid></Accordion>
+        
+        
+          <Grid item xs={12} style={{ padding: "20px 10px" }}>
+          <Button
+            size="small"
+            className="col-3"
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              append(dummyAddaccidendData);
+            }}
+          >
+            Add More
+          </Button>
+        </Grid>
       </Grid>
     </React.Fragment>
   );
