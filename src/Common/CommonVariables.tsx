@@ -831,19 +831,7 @@ export let dummyAddrData = {
   lastYearAddressfrom: "",
   lastYearAddressTo: "",
 };
-export let dummyAddaccidendData = {
-  dateOfAccident:"",
-  recordableAccident:"",
-  preventableAccident:"",
-  accidentAccur:"",
-  stateOfLicence:"",
-  injuredPeople:"",
-  fatalittiesInAccident:"",
-  preventableAccidents:"",
-  drivingInTheAccident:"",
-  accidentDescribe:"",
-  anyComments:"",
-};
+
 export const startTimeVal = [
   { value: "Immediately" },
   { value: "Within 2 Weeks" },

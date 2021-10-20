@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
   FormHelperText,
+  Hidden,
 } from "@material-ui/core";
 import React from "react";
 import { Container } from "react-bootstrap";
@@ -71,6 +72,7 @@ import { update } from "../services/updateApi";
 import { PinDropRounded } from "@material-ui/icons";
 import { DynamicReferences } from "./DynamicAddition/DynamicReferences";
 import { useRef, useState } from "react";
+// import { hidden, useHidden} from "react";
 import ReactAutoComplete from "./SubComponents/ReactAutoComplete";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
 import AlertComponent from "./SubComponents/AlertComponent";
@@ -160,7 +162,8 @@ function EmpApplicationForm3(props: Props) {
   const [signatureError, setSignatureError] = useState("");
   const [signatureHelperTextError, setSignatureHelperTextError] =
     useState(false);
-  const Forms = useForm({
+  const [accidentHistoryToggle,setAccidentHistoryToggle] = useState(false);
+    const Forms = useForm({
     defaultValues: props.data,
     shouldFocusError: true,
     criteriaMode: "all",
@@ -175,6 +178,16 @@ function EmpApplicationForm3(props: Props) {
     convictedofafelony: props.data.convictedofafelony === "Yes",
   });
 
+  // const hidden =Checkbox().hidden();
+  // let show;
+  //   if (hidden == Checkbox) {
+
+  //     show= (true);
+  //   }else {
+  //     show = (false);
+
+  //   };
+  
   const [saveOnlySuccessSnackOpen, setSaveOnlySuccessSnackOpen] =
     React.useState(false);
   const saveOnlyHandleClose = (
@@ -1245,26 +1258,20 @@ function EmpApplicationForm3(props: Props) {
                 <Grid className="row">
                   <Grid
                     item
-                    md={6}
-                    style={{ display: "flex", flexDirection: "row", marginLeft: 75 }}
-                  >
-                    <Checkbox inputProps={{ "aria-label": "controlled" }} />
-                    <Typography style={{ marginTop: 10 }}>
-                      No Accidents
-                    </Typography>
-                    
+                      md={12}
+                    style={{ display: "flex", flexDirection: "row", paddingLeft: 80 }}
+                  > 
+                    <Checkbox inputProps={{ "aria-label": "controlled" }} onChange={(e)=> {
+                      let accidentHistoryFlag =  e.target.checked;
+                      setAccidentHistoryToggle(accidentHistoryFlag);
+                    }} 
+                    value={accidentHistoryToggle}
+                    />
+                      <Typography style={{ paddingTop: 10 }}>
+                        No Accidents
+                      </Typography>
                   </Grid>
-                  
-                  {/* <Grid item md={6}style={{ display: "flex", flexDirection: "row"}}>
-                <Checkbox inputProps={{ "aria-label": "controlled" }} />
-                    <Typography style={{ marginTop: 10 }}>
-                      No Accident
-                    </Typography>
-                </Grid> */}
-                
-                
                 </Grid>
-
                 <Grid className="row">
                   <Grid className="col-1"></Grid>
                   <Grid className="col-10 mt-2">
@@ -1273,6 +1280,7 @@ function EmpApplicationForm3(props: Props) {
                       employmentAccidentHistoryList={
                         props.data.employmentAccidentsHistory
                       }
+                      accidentHistoryFlag={accidentHistoryToggle}
                       useForm={Forms}
                       setEmploymentAccidentHistoryList={
                         updateEmploymentAccidentHistoryList
