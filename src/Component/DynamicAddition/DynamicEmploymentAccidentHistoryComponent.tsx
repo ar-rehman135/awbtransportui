@@ -69,14 +69,7 @@ type Props = {
 const RequireError: string = "Required *";
 const WrongPatternError: string = "Wrong Pattern";
 
-let addr = {
-  lastYearAddress: "",
-  lastYearAddressCity: "",
-  lastYearAddressState: "",
-  lastYearAddressZipCode: "",
-  lastYearAddressfrom: "1990-01-01",
-  lastYearAddressTo: "1990-01-01",
-};
+
 let dummyAddaccidendData = {
   dateOfAccident: "",
   recordableAccident: "",
@@ -186,9 +179,25 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     <Grid
                       item
                       style={{ paddingRight: 362, paddingTop: 5, paddingLeft: 15}}
+                      
                     >
-                        <RadioGroup row id="recordableAccident">
+                        <RadioGroup row id="">
                           <FormControlLabel
+                          // name={`${props.idPrefix}[${index}].recordableAccident`}
+                          // defaultValue={item.recordableAccident}
+                          //   error={
+                          //     errors &&
+                          //     errors[props.idPrefix] &&
+                          //     errors[props.idPrefix][index] &&
+                          //     errors[props.idPrefix][index].recordableAccident
+                          //   }
+                          //   inputRef={register({
+                          //     required: reqBits.recordableAccident,
+                          //   })}
+                           
+                            //useForms Handling End
+                          
+                          
                             value="Yes"
                             control={<Radio />}
                             label="Yes"
@@ -217,10 +226,23 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                       <RadioGroup
                         row
                         aria-label=""
-                        name="row-radio-buttons-group"
-                        id="preventableAccident"
+                        id=""
+                        // name={`${props.idPrefix}[${index}].preventableAccident`}
+                        // defaultValue={item.preventableAccident}
+                        //   error={
+                        //     errors &&
+                        //     errors[props.idPrefix] &&
+                        //     errors[props.idPrefix][index] &&
+                        //     errors[props.idPrefix][index].preventableAccident
+                        //   }
+                        //   inputRef={register({
+                        //     required: reqBits.preventableAccident,
+                        //   })}
+                       
+
                       >
                         <FormControlLabel
+                        
                           value="Yes"
                           control={<Radio />}
                           label="Yes"
@@ -231,6 +253,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           label="No"
                         ></FormControlLabel>
                       </RadioGroup>
+                      
                     </Grid>
                   </Grid>
                   <Grid container style={{ display: "flex", flexDirection: "row"}}> 
@@ -246,7 +269,25 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     <Grid  style={{ display: "flex", flexDirection: "row", paddingLeft:  282}}>
                     <Grid item md={12} xs={12} sm={12} xl={12}>
                       <TextField
-                        name={`${"employmentAccidentsHistory"}[${index}].accidentAccur`}
+
+                      error={  
+                      errors &&
+                      errors[props.idPrefix] &&
+                      errors[props.idPrefix][index] &&
+                      errors[props.idPrefix][index].accidentAccur
+                       }
+                      inputRef={register({
+                      required: {
+                      // value: reqBits.accidentAccur,
+                      message: RequireError,
+                      },
+                      })}
+                     inputProps={{
+                     max: resolveOverFlowYearIssue(),
+                      }}
+                        name={`${props.idPrefix}[${index}].accidentAccur`}
+                        defaultValue={item.accidentAccur}
+
                         size="small"
                         multiline
                         rows={1}
@@ -299,13 +340,33 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                     <Grid  style={{  }}>
                       <TextField
-                        name={`${"employmentAccidentsHistory"}[${index}].injuredPeople`}
+                      
+                      error={  
+                        errors &&
+                        errors[props.idPrefix] &&
+                        errors[props.idPrefix][index] &&
+                        errors[props.idPrefix][index].injuredPeople
+                         }
+                        inputRef={register({
+                        required: {
+                        // value: reqBits.injuredPeople,
+                        message: RequireError,
+                        },
+                        })}
+                       inputProps={{
+                       max: resolveOverFlowYearIssue(),
+                        }}
+                          name={`${props.idPrefix}[${index}].injuredPeople`}
+                          defaultValue={item.injuredPeople}
+                    
+                        
                         id="outlined-number"
                         type="number"
                         rows={1}
                         variant="outlined"
                         style={{paddingTop: 15, paddingLeft: 170}}
                         size="small"
+                        
                         // InputLabelProps={{
                         // shrink: true,
                         // }}
@@ -328,7 +389,24 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                     <Grid>
                       <TextField
-                        name={`${"employmentAccidentsHistory"}[${index}].fatalittiesInAccident`}
+                       error={  
+                        errors &&
+                        errors[props.idPrefix] &&
+                        errors[props.idPrefix][index] &&
+                        errors[props.idPrefix][index].fatalittiesInAccident
+                         }
+                        inputRef={register({
+                        required: {
+                        // value: reqBits.fatalittiesInAccident,
+                        message: RequireError,
+                        },
+                        })}
+                       inputProps={{
+                       max: resolveOverFlowYearIssue(),
+                        }}
+                          name={`${props.idPrefix}[${index}].fatalittiesInAccident`}
+                          defaultValue={item.fatalittiesInAccident}
+
                         id="outlined-number"
                         type="number"
                         rows={1}
@@ -392,11 +470,11 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                     <Grid  style={{paddingLeft: 96, paddingTop: 1, paddingBottom: 10}}>
                       <ReactHookFormSelect
-                        nameVal={`${props.idPrefix}[${index}].drivingInTheAccident`}
+                        nameVal={`${props.idPrefix}[${index}].employeeIndependent`}
                         label=""
                         control={control}
                         forms={props.useForm}
-                        defaultValue={item.stateOfLicence}
+                        defaultValue={item.employeeIndependent}
                         variant="outlined"
                         size="small"
                         className="col-12"
@@ -405,11 +483,11 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           errors &&
                           errors[props.idPrefix] &&
                           errors[props.idPrefix][index] &&
-                          errors[props.idPrefix][index].stateOfLicence
+                          errors[props.idPrefix][index].employeeIndependent
                         }
                         isPartOfDynamicComponent={true}
                         parentId={props.idPrefix}
-                        childSubId="stateOfLicence"
+                        childSubId="employeeIndependent"
                         parentIndex={index}
                       >
                         <option aria-label="None" value="" />
@@ -426,7 +504,24 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   <Grid container>
                     <Grid item md={12} xs={12} sm={12} xl={12}  style={{ paddingBottom: 10 }}>
                       <TextField
-                        name={`${"employmentAccidentsHistory"}[${index}].accidentDescribe`}
+                          error={  
+                            errors &&
+                            errors[props.idPrefix] &&
+                            errors[props.idPrefix][index] &&
+                            errors[props.idPrefix][index].accidentDescribe
+                             }
+                            inputRef={register({
+                            required: {
+                            // value: reqBits.accidentDescribe,
+                            message: RequireError,
+                            },
+                            })}
+                           inputProps={{
+                           max: resolveOverFlowYearIssue(),
+                            }}
+                              name={`${props.idPrefix}[${index}].accidentDescribe`}
+                              defaultValue={item.accidentDescribe}
+
                         label="Describe the accident*"
                         size="small"
                         multiline
@@ -440,7 +535,26 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   <Grid container>
                     <Grid item md={12}  xs={12} sm={12} xl={12} >
                       <TextField
-                        name={`${"employmentAccidentsHistory"}[${index}].anyComments`}
+                      name={`${props.idPrefix}[${index}].anyComments`}
+                      defaultValue={item.anyComments}
+                       error={  
+                        errors &&
+                        errors[props.idPrefix] &&
+                        errors[props.idPrefix][index] &&
+                        errors[props.idPrefix][index].anyComments
+                         }
+                        inputRef={register({
+                        required: {
+                        // value: reqBits.anyComments,
+                        message: RequireError,
+                        },
+                        })}
+                       inputProps={{
+                       max: resolveOverFlowYearIssue(),
+                        }}
+                          
+
+                       
                         label="Any other comments?"
                         size="small"
                         multiline

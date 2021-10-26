@@ -254,7 +254,7 @@ export type EmploymentAccidentHistoryInfo = {
   NumberOfAccidents: string;
   LocationOfAccidents: string;
   numberofFatalities?: number;
-  numberofPeopleleInjured?: number;
+  injuredPeople: string;
 };
 
 export let employmentAccidentHistoryDummyElement: EmploymentAccidentHistoryInfo = {
@@ -262,7 +262,7 @@ export let employmentAccidentHistoryDummyElement: EmploymentAccidentHistoryInfo 
   NumberOfAccidents: "",
   LocationOfAccidents: "",
   numberofFatalities: undefined ,
-  numberofPeopleleInjured: undefined,
+  injuredPeople: "",
 };
 
 export type EmploymentAccidentHistories = EmploymentAccidentHistoryInfo[];

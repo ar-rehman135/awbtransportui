@@ -361,8 +361,7 @@ function EmpApplicationForm3(props: Props) {
       return;
     }
 
-    //console.log("datadata");
-    //console.log(data);
+    console.log(data.employmentAccidentsHistory[0]);
 
     if (!data.applicantAddresses) data.applicantAddresses = [];
     if (!data.employmentHistory) data.employmentHistory = [];
@@ -416,11 +415,11 @@ function EmpApplicationForm3(props: Props) {
   const updateEmploymentAccidentHistoryList = (
     updateEmploymentAccidentHistories: any
   ) => {
-    //console.log(
-    // "------------Update Employment Accident History List------------"
-    // );
+    console.log(
+    "------------Update Employment Accident History List------------"
+    );
     EmploymentAccidentHistoryList = updateEmploymentAccidentHistories;
-    //console.log(EmploymentAccidentHistoryList);
+    console.log(EmploymentAccidentHistoryList);
   };
 
   const updateDrivingExperienceList = (updateDrivingExperiences: any) => {
