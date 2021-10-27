@@ -125,11 +125,11 @@ export default function RadioQuestions(props: Props) {
   return (
     <React.Fragment >
         <Grid
-          
           container
           direction="row"
-          justify="space-around"
+          justify="space-between"
           alignItems="flex-start"
+          style={{margin:"0px",paddingLeft:"10px"}}
           spacing={1}
         >
           <Grid

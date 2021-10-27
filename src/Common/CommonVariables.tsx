@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import formatStringByPattern from "format-string-by-pattern";
 
 export const RequireError: string = "Required *";
@@ -255,6 +256,9 @@ export type EmploymentAccidentHistoryInfo = {
   LocationOfAccidents: string;
   numberofFatalities?: number;
   injuredPeople: string;
+  recordableAccident: string;
+  preventableAccident: string;
+  hazardousMaterial: string;
 };
 
 export let employmentAccidentHistoryDummyElement: EmploymentAccidentHistoryInfo = {
@@ -263,6 +267,9 @@ export let employmentAccidentHistoryDummyElement: EmploymentAccidentHistoryInfo 
   LocationOfAccidents: "",
   numberofFatalities: undefined ,
   injuredPeople: "",
+  recordableAccident: "",
+  preventableAccident: "",
+  hazardousMaterial: "",
 };
 
 export type EmploymentAccidentHistories = EmploymentAccidentHistoryInfo[];
@@ -315,6 +322,15 @@ export type Form1 = {
 type Dict = { [index: string]: boolean };
 
 export let reqBits = {
+  anyComments:false,
+  accidentDescribe:false,
+  fatalittiesInAccident:true,
+  injuredPeople:true,
+  accidentAccurState:true,
+  accidentAccurCity:true,
+  hazardousMaterial:false,
+  recordableAccident:false,
+  preventableAccident:false,
   employmentHistorycompanyName:true,
   non_united_state_citizen:true,
   united_state_citizen:true,

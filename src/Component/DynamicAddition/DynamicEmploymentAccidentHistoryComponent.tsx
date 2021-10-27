@@ -111,7 +111,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
         justify="space-around"
         alignItems="center"
       >
-
         {props.accidentHistoryFlag === false 
         ? (<>
             {fields.map((item, index) => (
@@ -169,91 +168,40 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Grid>
                   <Grid container>
                     <Grid
-                      item
-                      style={{ paddingLeft: 10}} 
+                      item  
                     >
-                      <Typography className="def">
-                        Was the accident DOT recordable?
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      style={{ paddingRight: 362, paddingTop: 5, paddingLeft: 15}}
-                      
-                    >
-                        <RadioGroup row id="">
-                          <FormControlLabel
-                          // name={`${props.idPrefix}[${index}].recordableAccident`}
-                          // defaultValue={item.recordableAccident}
-                          //   error={
-                          //     errors &&
-                          //     errors[props.idPrefix] &&
-                          //     errors[props.idPrefix][index] &&
-                          //     errors[props.idPrefix][index].recordableAccident
-                          //   }
-                          //   inputRef={register({
-                          //     required: reqBits.recordableAccident,
-                          //   })}
-                           
-                            //useForms Handling End
-                          
-                          
-                            value="Yes"
-                            control={<Radio />}
-                            label="Yes"
-                          ></FormControlLabel>
-                            <FormControlLabel
-                            value="No"
-                            control={<Radio />}
-                            label="No"
-                          ></FormControlLabel>
-                        </RadioGroup> 
+                        <RadioQuestions
+                         id={`${props.idPrefix}[${index}].recordableAccident`}
+                         optionList={["Yes", "No"]}
+                         optionValue={["Yes", "No"]}
+                         useForm={props.useForm}
+                         question="Was the accident DOT recordable?"
+                         defaultSelected={props.employmentAccidentHistoryList[index]?.recordableAccident}
+                         isReq={reqBits.recordableAccident}
+                         isPartOfDynamicComponent={true}
+                         parentId={props.idPrefix}
+                         childSubId={"recordableAccident"}
+                         parentIndex={index}
+                        ></RadioQuestions>
                     </Grid>
                   </Grid>
-                  <Grid container  style={{ display: "flex", flexDirection: "row" , paddingRight:20}}>
-                    <Grid
-                      item 
-                      style={{ paddingLeft: 10}}
-                    >
-                      <Typography className="abc">
-                        Was the accident preventable?
-                      </Typography>
-                    </Grid>
+                  <Grid container  style={{ display: "flex", flexDirection: "row" , paddingRight:0}}>
                     <Grid
                       item  
-                      style={{ paddingRight: 362, paddingTop:5, paddingLeft: 15}}
                     >
-                      <RadioGroup
-                        row
-                        aria-label=""
-                        id=""
-                        // name={`${props.idPrefix}[${index}].preventableAccident`}
-                        // defaultValue={item.preventableAccident}
-                        //   error={
-                        //     errors &&
-                        //     errors[props.idPrefix] &&
-                        //     errors[props.idPrefix][index] &&
-                        //     errors[props.idPrefix][index].preventableAccident
-                        //   }
-                        //   inputRef={register({
-                        //     required: reqBits.preventableAccident,
-                        //   })}
-                       
-
-                      >
-                        <FormControlLabel
-                        
-                          value="Yes"
-                          control={<Radio />}
-                          label="Yes"
-                        ></FormControlLabel>
-                        <FormControlLabel
-                          value="No"
-                          control={<Radio />}
-                          label="No"
-                        ></FormControlLabel>
-                      </RadioGroup>
-                      
+                        <RadioQuestions
+                         id={`${props.idPrefix}[${index}].preventableAccident`}
+                         optionList={["Yes", "No"]}
+                         optionValue={["Yes", "No"]}
+                         useForm={props.useForm}
+                         question= "Was the accident preventable?"
+                         defaultSelected={props.employmentAccidentHistoryList[index]?.preventableAccident}
+                         isReq={reqBits.preventableAccident}
+                         isPartOfDynamicComponent={true}
+                         parentId={props.idPrefix}
+                         childSubId={"preventableAccident"}
+                         parentIndex={index}   
+                        ></RadioQuestions>
                     </Grid>
                   </Grid>
                   <Grid container style={{ display: "flex", flexDirection: "row"}}> 
@@ -265,29 +213,26 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         In What city and state did the accident accur?
                       </Typography>
                     </Grid>
-                  
                     <Grid  style={{ display: "flex", flexDirection: "row", paddingLeft:  282}}>
                     <Grid item md={12} xs={12} sm={12} xl={12}>
                       <TextField
-
                       error={  
                       errors &&
                       errors[props.idPrefix] &&
                       errors[props.idPrefix][index] &&
-                      errors[props.idPrefix][index].accidentAccur
+                      errors[props.idPrefix][index].accidentAccurCity
                        }
                       inputRef={register({
                       required: {
-                      // value: reqBits.accidentAccur,
+                      value: reqBits.accidentAccurCity,
                       message: RequireError,
                       },
                       })}
                      inputProps={{
                      max: resolveOverFlowYearIssue(),
                       }}
-                        name={`${props.idPrefix}[${index}].accidentAccur`}
-                        defaultValue={item.accidentAccur}
-
+                        name={`${props.idPrefix}[${index}].accidentAccurCity`}
+                        defaultValue={item.accidentAccurCity}
                         size="small"
                         multiline
                         rows={1}
@@ -297,24 +242,24 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                     <Grid item md={12} xs={12} sm={12} xl={12}>
                       <ReactHookFormSelect
-                        nameVal={`${props.idPrefix}[${index}].stateOfLicence`}
+                        nameVal={`${props.idPrefix}[${index}].accidentAccurState`}
                         label="State"
                         control={control}
                         forms={props.useForm}
-                        defaultValue={item.stateOfLicence}
+                        defaultValue={item.accidentAccurState}
                         variant="outlined"
                         size="small"
                         className="col-11"
-                        isReq={reqBits.stateOfLicence}
+                        isReq={reqBits.accidentAccurState}
                         error={
                           errors &&
                           errors[props.idPrefix] &&
                           errors[props.idPrefix][index] &&
-                          errors[props.idPrefix][index].stateOfLicence
+                          errors[props.idPrefix][index].accidentAccurState
                         }
                         isPartOfDynamicComponent={true}
                         parentId={props.idPrefix}
-                        childSubId="stateOfLicence"
+                        childSubId="accidentAccurState"
                         parentIndex={index}
                       >
                         <option aria-label="None" value="" />
@@ -340,7 +285,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                     <Grid  style={{  }}>
                       <TextField
-                      
                       error={  
                         errors &&
                         errors[props.idPrefix] &&
@@ -349,7 +293,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          }
                         inputRef={register({
                         required: {
-                        // value: reqBits.injuredPeople,
+                        value: reqBits.injuredPeople,
                         message: RequireError,
                         },
                         })}
@@ -358,15 +302,12 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         }}
                           name={`${props.idPrefix}[${index}].injuredPeople`}
                           defaultValue={item.injuredPeople}
-                    
-                        
                         id="outlined-number"
                         type="number"
                         rows={1}
                         variant="outlined"
                         style={{paddingTop: 15, paddingLeft: 170}}
-                        size="small"
-                        
+                        size="small"                
                         // InputLabelProps={{
                         // shrink: true,
                         // }}
@@ -397,7 +338,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          }
                         inputRef={register({
                         required: {
-                        // value: reqBits.fatalittiesInAccident,
+                        value: reqBits.fatalittiesInAccident,
                         message: RequireError,
                         },
                         })}
@@ -406,7 +347,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         }}
                           name={`${props.idPrefix}[${index}].fatalittiesInAccident`}
                           defaultValue={item.fatalittiesInAccident}
-
                         id="outlined-number"
                         type="number"
                         rows={1}
@@ -424,38 +364,25 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container >
-                    <Grid
-                      item
-                      style={{paddingLeft: 10}}
-                    >
-                      <Typography className="lmn">
-                        Did the accident involve a hazardous material?
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      style={{ paddingRight: 362, paddingTop: 5, paddingLeft: 15}}
-                    >
-                      <RadioGroup
-                        row
-                        aria-label=""
-                        name="row-radio-buttons-group"
-                        id="preventableAccidents"
-                      >
-                        <FormControlLabel
-                          value="Yes"
-                          control={<Radio />}
-                          label="Yes"
-                        ></FormControlLabel>
-                        <FormControlLabel
-                          value="No"
-                          control={<Radio />}
-                          label="No"
-                        ></FormControlLabel>
-                      </RadioGroup>
-                    </Grid>
+                  <Grid container  style={{ display: "flex", flexDirection: "row" , paddingRight:0}}>
+                  <Grid
+                    item  
+                  >
+                      <RadioQuestions
+                       id={`${props.idPrefix}[${index}].hazardousMaterial`}
+                       optionList={["Yes", "No"]}
+                       optionValue={["Yes", "No"]}
+                       useForm={props.useForm}
+                       question= "Did the accident involve a hazardous material?"
+                       defaultSelected={props.employmentAccidentHistoryList[index]?.hazardousMaterial}
+                       isReq={reqBits.hazardousMaterial}
+                       isPartOfDynamicComponent={true}
+                       parentId={props.idPrefix}
+                       childSubId={" hazardousMaterial"}
+                       parentIndex={index}
+                      ></RadioQuestions>
                   </Grid>
+                </Grid>
                   <Grid
                     container
                   >
@@ -512,7 +439,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                              }
                             inputRef={register({
                             required: {
-                            // value: reqBits.accidentDescribe,
+                            value: reqBits.accidentDescribe,
                             message: RequireError,
                             },
                             })}
@@ -545,16 +472,13 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          }
                         inputRef={register({
                         required: {
-                        // value: reqBits.anyComments,
+                        value: reqBits.anyComments,
                         message: RequireError,
                         },
                         })}
                        inputProps={{
                        max: resolveOverFlowYearIssue(),
                         }}
-                          
-
-                       
                         label="Any other comments?"
                         size="small"
                         multiline
