@@ -322,6 +322,7 @@ export type Form1 = {
 type Dict = { [index: string]: boolean };
 
 export let reqBits = {
+  noAccident:false,
   anyComments:false,
   accidentDescribe:false,
   fatalittiesInAccident:true,

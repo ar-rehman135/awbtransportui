@@ -310,8 +310,9 @@ function EmpApplicationForm3(props: Props) {
       data.signature = "";
     } else data.signature = base64SignatureImage;
     data.user_name = props.data.user_name;
-    // console.log("FOrm3");
-    // console.log(data);
+    
+    console.log("Form3");
+    console.log(data);
     let resdata = (await update(data)) as unknown as any;
     if (resdata.data) {
       try {
@@ -361,7 +362,7 @@ function EmpApplicationForm3(props: Props) {
       return;
     }
 
-    console.log(data.employmentAccidentsHistory[0]);
+    // console.log(data.employmentAccidentsHistory[0]);
 
     if (!data.applicantAddresses) data.applicantAddresses = [];
     if (!data.employmentHistory) data.employmentHistory = [];
@@ -374,6 +375,7 @@ function EmpApplicationForm3(props: Props) {
 
     data.applicantfirstName = props.data.first_name;
     data.applicantLastName = props.data.last_name;
+    data.noAccident = accidentHistoryToggle;
 
     saveData(data, false);
   };
@@ -1260,15 +1262,18 @@ function EmpApplicationForm3(props: Props) {
                       md={12}
                     style={{ display: "flex", flexDirection: "row", paddingLeft: 80 }}
                   > 
-                    <Checkbox inputProps={{ "aria-label": "controlled" }} onChange={(e)=> {
-                      let accidentHistoryFlag =  e.target.checked;
-                      setAccidentHistoryToggle(accidentHistoryFlag);
-                    }} 
-                    value={accidentHistoryToggle}
-                    />
-                      <Typography style={{ paddingTop: 10 }}>
-                        No Accidents
-                      </Typography>
+                    <Checkbox 
+                      inputRef={register}
+                      name="noAccident"
+                      inputProps={{ "aria-label": "controlled" }} onChange={(e)=> {
+                        let accidentHistoryFlag =  e.target.checked;
+                        setAccidentHistoryToggle(accidentHistoryFlag);
+                      }} 
+                      value={accidentHistoryToggle}
+                      />
+                        <Typography style={{ paddingTop: 10 }}>
+                          No Accidents
+                        </Typography>
                   </Grid>
                 </Grid>
                 <Grid className="row">
@@ -1279,7 +1284,7 @@ function EmpApplicationForm3(props: Props) {
                       employmentAccidentHistoryList={
                         props.data.employmentAccidentsHistory
                       }
-                      accidentHistoryFlag={accidentHistoryToggle}
+                      noAccident={accidentHistoryToggle}
                       useForm={Forms}
                       setEmploymentAccidentHistoryList={
                         updateEmploymentAccidentHistoryList

@@ -56,14 +56,14 @@ import {
 blue800,
 
 } from "material-ui/styles/colors";
-import { error } from "console";
 
 type Props = {
   idPrefix: string;
   employmentAccidentHistoryList: EmploymentAccidentHistories;
   useForm: any;
   setEmploymentAccidentHistoryList: any;
-  accidentHistoryFlag: boolean;
+  noAccident: boolean;
+  
 };
 
 const RequireError: string = "Required *";
@@ -111,7 +111,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
         justify="space-around"
         alignItems="center"
       >
-        {props.accidentHistoryFlag === false 
+        {props.noAccident === false 
         ? (<>
             {fields.map((item, index) => (
               <Accordion
@@ -308,9 +308,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         variant="outlined"
                         style={{paddingTop: 15, paddingLeft: 170}}
                         size="small"                
-                        // InputLabelProps={{
-                        // shrink: true,
-                        // }}
                         InputProps={{
                           inputProps: {
                             min: 0,
@@ -353,9 +350,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         variant="outlined"
                         style={{paddingLeft: 165, paddingTop: 10}}
                         size="small"
-                        // InputLabelProps={{
-                        // shrink: true,
-                        // }}
                         InputProps={{
                           inputProps: {
                             min: 0,
@@ -405,7 +399,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         variant="outlined"
                         size="small"
                         className="col-12"
-                         isReq={false}
+                         isReq={true}
                         error={
                           errors &&
                           errors[props.idPrefix] &&
@@ -496,10 +490,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                       variant="contained"
                       color="default"
                       onClick={(e) => {
-                        // if(fields.length > props.minElementLimit)
-                        // {
                         remove(index);
-                        // }
                       }}
                     >
                       Delete Entry
@@ -508,6 +499,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                 </Grid>
               </Accordion>
             ))}
+           
             <Grid item md={12} xs={12} sm={12} xl={12} style={{ padding: "20px 10px" }}>
               <Button
                 size="small"
@@ -540,9 +532,12 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                   </Paper>
                 </Grid>
                 </Grid>
+                 {/* ))}  */}
               </Grid>
-        </>)}
-      </Grid>
+           
+              </>)}
+        {/* </>)} */}
+      </Grid> 
     </React.Fragment>
   );
 }
