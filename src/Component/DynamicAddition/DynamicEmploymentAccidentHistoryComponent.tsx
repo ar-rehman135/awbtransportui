@@ -65,10 +65,8 @@ type Props = {
   noAccident: boolean;
   
 };
-
 const RequireError: string = "Required *";
 const WrongPatternError: string = "Wrong Pattern";
-
 
 let dummyAddaccidendData = {
   dateOfAccident: "",
@@ -166,11 +164,10 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                       className="col-12"
                     ></TextField>
                   </Grid>
-                  <Grid container>
                     <Grid
                       item  
-                    >
-                        <RadioQuestions
+                      >
+                         <RadioQuestions
                          id={`${props.idPrefix}[${index}].recordableAccident`}
                          optionList={["Yes", "No"]}
                          optionValue={["Yes", "No"]}
@@ -180,16 +177,15 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          isReq={reqBits.recordableAccident}
                          isPartOfDynamicComponent={true}
                          parentId={props.idPrefix}
+                         justifyContent="space-between"
                          childSubId={"recordableAccident"}
                          parentIndex={index}
                         ></RadioQuestions>
                     </Grid>
-                  </Grid>
-                  <Grid container  style={{ display: "flex", flexDirection: "row" , paddingRight:0}}>
                     <Grid
-                      item  
-                    >
-                        <RadioQuestions
+                       item  
+                        >  
+                         <RadioQuestions
                          id={`${props.idPrefix}[${index}].preventableAccident`}
                          optionList={["Yes", "No"]}
                          optionValue={["Yes", "No"]}
@@ -199,11 +195,11 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          isReq={reqBits.preventableAccident}
                          isPartOfDynamicComponent={true}
                          parentId={props.idPrefix}
+                         justifyContent="space-between"
                          childSubId={"preventableAccident"}
                          parentIndex={index}   
                         ></RadioQuestions>
                     </Grid>
-                  </Grid>
                   <Grid container style={{ display: "flex", flexDirection: "row"}}> 
                     <Grid
                       item
@@ -213,7 +209,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         In What city and state did the accident accur?
                       </Typography>
                     </Grid>
-                    <Grid  style={{ display: "flex", flexDirection: "row", paddingLeft:  282}}>
+                    <Grid  style={{ display: "flex", flexDirection: "row", paddingLeft:  272}}>
                     <Grid item md={12} xs={12} sm={12} xl={12}>
                       <TextField
                       error={  
@@ -238,6 +234,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         rows={1}
                         variant="outlined"
                         className="col-11"
+                        label="City"
                       />
                     </Grid>
                     <Grid item md={12} xs={12} sm={12} xl={12}>
@@ -249,7 +246,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         defaultValue={item.accidentAccurState}
                         variant="outlined"
                         size="small"
-                        className="col-11"
+                        className="col-12"
                         isReq={reqBits.accidentAccurState}
                         error={
                           errors &&
@@ -304,6 +301,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           defaultValue={item.injuredPeople}
                         id="outlined-number"
                         type="number"
+                        className="col-12"
                         rows={1}
                         variant="outlined"
                         style={{paddingTop: 15, paddingLeft: 170}}
@@ -346,6 +344,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           defaultValue={item.fatalittiesInAccident}
                         id="outlined-number"
                         type="number"
+                        className="col-12"
                         rows={1}
                         variant="outlined"
                         style={{paddingLeft: 165, paddingTop: 10}}
@@ -358,7 +357,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container  style={{ display: "flex", flexDirection: "row" , paddingRight:0}}>
                   <Grid
                     item  
                   >
@@ -372,11 +370,11 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                        isReq={reqBits.hazardousMaterial}
                        isPartOfDynamicComponent={true}
                        parentId={props.idPrefix}
+                       justifyContent="space-between"
                        childSubId={" hazardousMaterial"}
                        parentIndex={index}
                       ></RadioQuestions>
                   </Grid>
-                </Grid>
                   <Grid
                     container
                   >
@@ -423,33 +421,32 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                     </Grid>
                   </Grid>
                   <Grid container>
-                    <Grid item md={12} xs={12} sm={12} xl={12}  style={{ paddingBottom: 10 }}>
-                      <TextField
-                          error={  
-                            errors &&
-                            errors[props.idPrefix] &&
-                            errors[props.idPrefix][index] &&
-                            errors[props.idPrefix][index].accidentDescribe
-                             }
-                            inputRef={register({
-                            required: {
-                            value: reqBits.accidentDescribe,
-                            message: RequireError,
-                            },
-                            })}
-                           inputProps={{
-                           max: resolveOverFlowYearIssue(),
-                            }}
-                              name={`${props.idPrefix}[${index}].accidentDescribe`}
-                              defaultValue={item.accidentDescribe}
-
+                   <Grid item md={12} xs={12} sm={12} xl={12}  style={{ paddingBottom: 10 }}>
+                    <TextField
+                      error={  
+                        errors &&
+                        errors[props.idPrefix] &&
+                        errors[props.idPrefix][index] &&
+                        errors[props.idPrefix][index].accidentDescribe
+                        }
+                        inputRef={register({
+                        required: {
+                        value: reqBits.accidentDescribe,
+                        message: RequireError,
+                        },
+                        })}
+                      inputProps={{
+                      max: resolveOverFlowYearIssue(),
+                        }}
+                        name={`${props.idPrefix}[${index}].accidentDescribe`}
+                        defaultValue={item.accidentDescribe}
                         label="Describe the accident*"
                         size="small"
                         multiline
                         rows={4}
                         variant="outlined"
                         className="col-12"
-                        style={{paddingLeft: 10, paddingRight: 10}}
+                        style={{paddingLeft: 3, paddingRight: 10}}
                       />  
                     </Grid>
                   </Grid>
@@ -479,7 +476,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         rows={4}
                         variant="outlined"
                         className="col-12"
-                        style={{paddingLeft: 10, paddingRight: 10}}
+                        style={{paddingLeft: 4, paddingRight:10}}
                       />
                     </Grid>
                   </Grid>
@@ -499,7 +496,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                 </Grid>
               </Accordion>
             ))}
-           
             <Grid item md={12} xs={12} sm={12} xl={12} style={{ padding: "20px 10px" }}>
               <Button
                 size="small"
@@ -519,24 +515,21 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
             <Grid container>
               <Grid item md={12} xs={12} sm={12} xl={12}>
                 <Grid style={{ width: "100%" }}>
-                  <Paper elevation={1} style={{ paddingLeft: 10, textAlign: "left" }}>
-                    <Typography>
-                      <InfoIcon style={{ color: blue800 }} />
-                      You have indicated this individual has no accidents.
-                    </Typography>
-                    <Typography style={{paddingLeft: 20}}>
-                      Any previously entered accidents will be ignored. You will not
-                      be able to enter any new accidents until you un-check the "No Accidents"
-                    box above.
-                    </Typography>
-                  </Paper>
-                </Grid>
-                </Grid>
-                 {/* ))}  */}
-              </Grid>
-           
-              </>)}
-        {/* </>)} */}
+                 <Paper elevation={1} style={{ paddingLeft: 10, textAlign: "left" }}>
+                 <Typography>
+                <InfoIcon style={{ color: blue800 }} />
+                 You have indicated this individual has no accidents.
+               </Typography>
+              <Typography style={{paddingLeft: 20}}>
+              Any previously entered accidents will be ignored. You will not
+              be able to enter any new accidents until you un-check the "No Accidents"
+              box above.
+             </Typography>
+            </Paper>
+           </Grid>
+          </Grid>
+         </Grid>
+        </>)}
       </Grid> 
     </React.Fragment>
   );

@@ -32,6 +32,8 @@ type Props = {
   actionOnSelection?: any;
   helperMessage?:string;
   showMessageOnValue?:string;
+  style?:any;
+  justifyContent?:any;
   xsSize?:
     | boolean
     | "auto"
@@ -68,6 +70,26 @@ export default function RadioQuestions(props: Props) {
   const [value,setValue] = useState(defaultValue);
   const myRef = useRef(null)
   const executeScroll = () => scrollToRef(myRef)
+  
+  const justifyParsing = () => {
+    try {
+      if(props.justifyContent === undefined) {
+        return "space-around";
+      }
+      else {
+        return props.justifyContent;
+      } 
+    }
+    catch(e) {
+      return "space-around";
+    }
+  }
+
+
+
+  console.log({"Justify State":justifyParsing()})
+  console.log({"Question":props.question,"Justify Value":justifyParsing()})
+
 
   function errorChecking()
   {
@@ -75,15 +97,8 @@ export default function RadioQuestions(props: Props) {
     try
     {
       if(props.isPartOfDynamicComponent === true){
-      //console.log("Radio Error 1:");
-      //console.log("props.parentId && props.parentIndex && props.childSubId");
-      //console.log(props.parentId);
-      //console.log(props.parentIndex );
-      //console.log(props.childSubId)
         if(errors && props.parentId && props.parentIndex !== undefined && props.childSubId && errors[props.parentId][props.parentIndex][props.childSubId]) {
           scrollToError();
-        //console.log("errors[props.parentId][props.parentIndex][props.childSubId]");
-        //console.log(errors[props.parentId][props.parentIndex][props.childSubId]);
           return errors[props.parentId][props.parentIndex][props.childSubId];
         }
         return false;
@@ -96,13 +111,9 @@ export default function RadioQuestions(props: Props) {
   }
 
   function scrollToError(){
-  //console.log("errors");
-  //console.log(errors);
 
     if(props.parentId)
     {
-    //console.log("errors[props.parentId]");
-    //console.log(errors[props.parentId]);
       if(errors[props.parentId])
       {
         executeScroll();
@@ -110,8 +121,6 @@ export default function RadioQuestions(props: Props) {
     }
     else 
     {
-    //console.log("errors[props.id]");
-    //console.log(errors[props.id]);
       if(errors[props.id])
       {
         executeScroll();
@@ -120,16 +129,16 @@ export default function RadioQuestions(props: Props) {
     return true;
   }
   
-
+  
 
   return (
     <React.Fragment >
         <Grid
           container
           direction="row"
-          justify="space-between"
+          justify={justifyParsing()}
           alignItems="flex-start"
-          style={{margin:"0px",paddingLeft:"10px"}}
+          // style={props.style}
           spacing={1}
         >
           <Grid
@@ -166,11 +175,8 @@ export default function RadioQuestions(props: Props) {
                               key={index}
                               onChange={(e: any) => {
                                 const v = e.target.value;
-                              //console.log("Selected Radio");
                                 props.actionOnSelection && props.actionOnSelection(e);
                                 setValue(v);
-                              //console.log("value");
-                              //console.log(value);
                               }}
                               value={props.optionValue[index]}
                               control={<Radio />}
@@ -186,9 +192,6 @@ export default function RadioQuestions(props: Props) {
                     {value === props.showMessageOnValue && props.helperMessage }
                   </FormLabel>
 
-                {/* <FormHelperText>
-                  {errors[props.id] && errors[props.id].message}
-                </FormHelperText> */}
               </FormControl>
           </Grid>
         </Grid>

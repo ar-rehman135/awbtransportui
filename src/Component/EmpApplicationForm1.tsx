@@ -714,15 +714,13 @@ function EmpApplicationForm1(props: Props) {
                     optionList={["Yes", "No"]}
                     optionValue={["Yes", "No"]}
                     actionOnSelection={(e: any) => {
-                    //console.log("actionOnSelection");
-                    //console.log(e);
-                    //console.log(e.target.value);
                       let hideOnNO: boolean = e.target.value === "No";
                       setHideAddressesComponent(hideOnNO);
                     }}
                     useForm={Forms}
                     isReq={reqBits.lastThreeYearResidenceCheck}
                     defaultSelected={manualStates.lastThreeYearResidenceCheck}
+                
                   />
 
                   <Grid item xs={1}></Grid>

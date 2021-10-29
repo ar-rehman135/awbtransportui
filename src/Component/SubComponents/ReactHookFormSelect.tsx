@@ -29,7 +29,7 @@ function ReactHookFormSelect(props: Props) {
   const { register, handleSubmit, errors, control, setError } = props.forms;
   let lable = props.label + props.isReq ? ("Required *"):"";
   const labelId = `${props.nameVal}-label`;
-  // console.log(props);
+  
   function errorChecking()
   {
     try
@@ -60,11 +60,7 @@ function ReactHookFormSelect(props: Props) {
           <Select
             native
             labelId={labelId}
-            label={props.label + props.isReq ? ("Required *"):""}
-            // error={
-            //   errors[props.nameVal] &&
-            //   (errors[props.nameVal] === undefined ? false : true)
-            // }
+            label={props.label + props.isReq ? (" State Requried *"):""}
             error={props?.isPartOfDynamicComponent?
               (errorChecking()):
               (errors[props.nameVal] &&
@@ -77,20 +73,17 @@ function ReactHookFormSelect(props: Props) {
               },
             })}
             onChange={(e:any) => {
-            //console.log("On Select CHange");
-            //console.log(e.target.value);
               if (e.target.value === "") {
               setError("Required", {
                 type: "manual",
                 message: "Required *",
               });
               }
-              // setSelectedValue(v);
+              
             }}
-            // value={selectedValue}
+           
             onSubmit={(e:any) => {
-            //console.log("On Select CHange");
-            //console.log(e.target.value);
+            
               if (e.target.value === "") {
               setError("Required", {
                 type: "manual",
@@ -106,7 +99,6 @@ function ReactHookFormSelect(props: Props) {
         control={props.control}
         defaultValue={props.defaultValue}
       />
-      {/* <FormLabel component="legend">{props.isReq && RequireError}</FormLabel> */}
     </FormControl>
   );
 }
