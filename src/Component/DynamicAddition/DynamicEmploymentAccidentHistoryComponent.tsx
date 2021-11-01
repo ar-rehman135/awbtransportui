@@ -200,17 +200,21 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                          parentIndex={index}   
                         ></RadioQuestions>
                     </Grid>
-                  <Grid container style={{ display: "flex", flexDirection: "row"}}> 
+                  <Grid 
+                     container 
+                     style={{ display: "flex", flexDirection: "row"}}> 
                     <Grid
-                      item
-                        style={{paddingLeft: 10}}
+                      item xs={6}
+                        style={{paddingRight: 25}}
                     >
                       <Typography>
                         In What city and state did the accident accur?
                       </Typography>
                     </Grid>
-                    <Grid  style={{ display: "flex", flexDirection: "row", paddingLeft:  272}}>
-                    <Grid item md={12} xs={12} sm={12} xl={12}>
+                    <Grid
+                      item xs={3}
+                       style={{ display: "flex", flexDirection: "row", paddingLeft: 0}}>
+                     
                       <TextField
                       error={  
                       errors &&
@@ -235,9 +239,12 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         variant="outlined"
                         className="col-11"
                         label="City"
+                        type="text"
                       />
                     </Grid>
-                    <Grid item md={12} xs={12} sm={12} xl={12}>
+                    <Grid item xs={3}
+                     style={{paddingRight: 10}}
+                    >
                       <ReactHookFormSelect
                         nameVal={`${props.idPrefix}[${index}].accidentAccurState`}
                         label="State"
@@ -269,18 +276,25 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         })}
                       </ReactHookFormSelect>
                     </Grid>
+                  
                     </Grid>
-                    </Grid>
-                  <Grid container style={{ display: "flex", flexDirection: "row" }}>
+                  <Grid container
+                   style={{ display: "flex", paddingTop: 10}}>
+                    
                     <Grid
-                      item
-                        style={{paddingLeft: 10, paddingTop: 10}}
-                    >
-                      <Typography>
-                        How many people were injured in the accident?
+                      item 
+                      xs={6} 
+                     
+                      style={{paddingRight: 7}}
+                      >
+                      <Typography> 
+                        How many people were injured in the accident? 
                       </Typography>
                     </Grid>
-                    <Grid  style={{  }}>
+                    <Grid 
+                      item xs={6}
+                          style={{paddingRight: 10}}
+                      >
                       <TextField
                       error={  
                         errors &&
@@ -304,7 +318,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         className="col-12"
                         rows={1}
                         variant="outlined"
-                        style={{paddingTop: 15, paddingLeft: 170}}
                         size="small"                
                         InputProps={{
                           inputProps: {
@@ -312,18 +325,22 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           },
                         }}
                       />
-                    </Grid>{" "}
+                    </Grid>
                   </Grid>
-                  <Grid container style={{ display: "flex", flexDirection: "row" }}>
+                  <Grid container
+                   style={{ display: "flex", paddingTop: 10 }}>
                     <Grid
-                      item
-                        style={{paddingLeft: 10}}
+                      item xs={6} 
+                         style={{paddingRight: 5}}
                     >
                       <Typography>
                         How many fatalitties were there in the accident?
                       </Typography>
                     </Grid>
-                    <Grid>
+                    <Grid
+                     item xs={6}
+                     style={{paddingRight: 10}}
+                     >
                       <TextField
                        error={  
                         errors &&
@@ -347,7 +364,6 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         className="col-12"
                         rows={1}
                         variant="outlined"
-                        style={{paddingLeft: 165, paddingTop: 10}}
                         size="small"
                         InputProps={{
                           inputProps: {
@@ -375,19 +391,18 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                        parentIndex={index}
                       ></RadioQuestions>
                   </Grid>
-                  <Grid
-                    container
-                  >
+                   <Grid container>
                     <Grid
-                      item 
-                        style={{paddingLeft: 10}}
+                      item xs={9}
+                        style={{paddingRight: 25}}
                     >
                       <Typography>
                         What was the employee/independent contractor driving in the
                         accident?
                       </Typography>
                     </Grid>
-                    <Grid  style={{paddingLeft: 96, paddingTop: 1, paddingBottom: 10}}>
+                    
+                    <Grid item xs={3} style={{paddingRight: 2}}>
                       <ReactHookFormSelect
                         nameVal={`${props.idPrefix}[${index}].employeeIndependent`}
                         label=""
@@ -396,7 +411,7 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                         defaultValue={item.employeeIndependent}
                         variant="outlined"
                         size="small"
-                        className="col-12"
+                        className="col-11"
                          isReq={true}
                         error={
                           errors &&
@@ -418,9 +433,12 @@ export function DynamicEmploymentAccidentHistoryComponent(props: Props) {
                           );
                         })}
                       </ReactHookFormSelect>
-                    </Grid>
-                  </Grid>
-                  <Grid container>
+                      </Grid>
+                    
+                 </Grid>
+                  <Grid container
+                  style={{paddingTop: 10}}
+                  >
                    <Grid item md={12} xs={12} sm={12} xl={12}  style={{ paddingBottom: 10 }}>
                     <TextField
                       error={  
