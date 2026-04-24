@@ -46,7 +46,7 @@
     "react-pro-sidebar": "^0.6.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.2",
     "react-scroll-to": "^3.0.0-beta.6",
     "react-scroll-to-first-error": "^1.0.4",
@@ -59,10 +59,18 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts start",
+    "build": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts build",
+    "test": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "overrides": {
+    "schema-utils@4.3.3": {
+      "ajv": "8.18.0"
+    },
+    "ajv-keywords@5.1.0": {
+      "ajv": "8.18.0"
+    }
   },
   "eslintConfig": {
     "extends": [
