@@ -123,7 +123,7 @@ function EmpApplicationForm2(props: Props) {
   const saveData = async (data:any,saveOnly:boolean) => {
     data.user_name = props.data.user_name;
     // console.log(data);
-    let resdata;
+    let resdata:any;
     resdata = await update(data);
     if (resdata.data){
       try {

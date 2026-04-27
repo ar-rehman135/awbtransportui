@@ -44,6 +44,12 @@ function Alert(props: AlertProps) {
   
 export default function FileUploadComponent(props:Props){
 
+    const isDeleteFileResponse = (
+      value: unknown
+    ): value is { status?: string; message?: string; error?: string } => {
+      return typeof value === "object" && value !== null;
+    };
+
 
     const [succesOrErrorBit, setSuccesOrErrorBit] = useState("success");
     const [fileUploadSuccesOrErrorBit, setFileUploadSuccesOrErrorBit] = useState(
@@ -66,18 +72,22 @@ export default function FileUploadComponent(props:Props){
     const  removeUploadedFileFromServer = async (e: any, fileName:string) => {
       //console.log("Remove Resume API");
       //console.log(fileName);
-        let res = await deleteFile(props.user_name,fileName)
+        const res = await deleteFile(props.user_name,fileName)
   //console.log("res");
   //console.log(res);
-        if (res.status === "true" ) {
+        if (isDeleteFileResponse(res) && res.status === "true" ) {
             setFileUploadSuccesOrErrorBit("success");
             setFileUploadSuccessSnackOpen(true);
-            setResponse(res.message);
+            setResponse(res.message || "File removed successfully.");
           } else {
             setHideFileComponent("");
             setFileUploadSuccesOrErrorBit("error");
               setFileUploadSuccessSnackOpen(true);
-            setResponse(res.error);
+            setResponse(
+              isDeleteFileResponse(res)
+                ? res.error || "Unable to remove file."
+                : "Unable to remove file."
+            );
           }
     };
 

@@ -284,7 +284,7 @@ function EmpApplicationForm3(props: Props) {
     data.user_name = props.data.user_name;
     // console.log("FOrm3");
     // console.log(data);
-    let resdata;
+    let resdata:any;
     resdata = await update(data);
     if (resdata.data){
       try {
