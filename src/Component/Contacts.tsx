@@ -44,7 +44,7 @@ export default function Contacts() {
 
     // console.log("contact us data");
     // console.log(data);
-    let res = await contactUs(data);
+    let res:any = await contactUs(data);
     // console.log(res);
     try {
         if(res.success){

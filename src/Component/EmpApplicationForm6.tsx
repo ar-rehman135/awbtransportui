@@ -136,7 +136,7 @@ export default function EmpApplicationForm6(props: Props) {
     else data.alcoholTestEmployeeSignature = base64SignatureImage;
     data.user_name = props.data.user_name;
     // console.log(data.alcoholTestEmployeeSignature);
-    let resdata;
+    let resdata:any;
     resdata = await update(data);
     if (resdata.data){
       try {

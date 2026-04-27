@@ -184,7 +184,7 @@ export default function EmpApplicationForm7(props: Props) {
     }
     else data.employeeSignature = base64SignatureImage;
     // console.log(data.employeeSignature);
-    let resdata;
+    let resdata:any;
     resdata = await update(data);
     if (resdata.data){
       try 

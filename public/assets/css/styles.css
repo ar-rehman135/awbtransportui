@@ -69,8 +69,10 @@ section {
 
 footer {
   display: block;
-  margin-top: calc(5% + 60px);
+  /* margin-top: calc(5% + 160px); */
   bottom: 0;
+  background-color: #1e2d3b;
+  color: #fff;
 }
 body {
   margin: 0;

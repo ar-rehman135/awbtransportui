@@ -162,7 +162,7 @@ function EmpApplicationForm1(props: Props) {
       return;
     }
 
-    let response = await fileUploadApi(formData);
+    let response:any = await fileUploadApi(formData);
     res = await response.json();
     if (res.status === "true") {
       setFileUploadSuccesOrErrorBit("success");
@@ -210,7 +210,7 @@ function EmpApplicationForm1(props: Props) {
 
     const saveData = async (data:any,saveOnly:boolean) => {
       data.user_name = manualStates.user_name;
-      let resdata;
+      let resdata:any;
       resdata = await update(data);
       if (resdata.data){
         try {
@@ -318,7 +318,7 @@ function EmpApplicationForm1(props: Props) {
     
     sameFileUploadHandling(fileName, "");
 
-    let res = await deleteFile(props.data.user_name, fileName);
+    let res:any = await deleteFile(props.data.user_name, fileName);
     console.log(propData);
     if (res.success != undefined) {
       setManualStates({
